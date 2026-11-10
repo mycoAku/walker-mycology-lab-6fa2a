@@ -977,6 +977,7 @@ footer .footer-details p:first-child { color: var(--white); text-transform: uppe
 footer .footer-credit { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.2); padding-top: 18px; margin-top: 4px; font-size: 12px; letter-spacing: .04em; }
 footer .footer-credit p { margin: 0; }
 footer .footer-credit-logo { display: inline-block; width: 56px; height: auto; margin: 0 3px; vertical-align: middle; }
+footer .footer-credit-logo-additional { width: auto; max-width: 56px; height: auto; max-height: 16px; }
 
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
 .reveal.visible { opacity: 1; transform: none; }
