@@ -1,37 +1,136 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: mycoAku/walker-mycology-lab-6fa2a
   branch: main
 
-media_folder: "uploads"
-public_folder: "/uploads"
+media_folder: uploads
+public_folder: /uploads
 
 collections:
-  - name: website-files
-    label: Website Files
+  - name: website
+    label: Website content
     files:
-      - name: index
-        label: Page Content and Layout
-        file: index.html
+      - name: content
+        label: Members, news and resources
+        file: content/website.json
+        format: json
         fields:
-          - label: HTML
-            name: body
-            widget: code
-            default_content_type: html
-
-      - name: script
-        label: Lab Members and Website Logic
-        file: script.js
-        fields:
-          - label: JavaScript
-            name: body
-            widget: code
-            default_content_type: javascript
-
-      - name: styles
-        label: Website Design
-        file: styles.css
-        fields:
-          - label: CSS
-            name: body
-            widget: code
-            default_content_type: css
+          - name: members
+            label: Lab members
+            label_singular: Member
+            widget: list
+            collapsed: auto
+            summary: "{{fields.name}} — {{fields.category}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - name: category
+                label: Category
+                widget: select
+                options:
+                  - { label: PhD, value: PhD }
+                  - { label: MSc, value: MSc }
+                  - { label: Honours, value: Honors }
+                  - { label: Undergraduate trainees, value: Undergraduate trainees }
+                  - { label: Alumni, value: Alumni }
+              - { name: role, label: Role or subtitle, widget: string }
+              - name: bio
+                label: Biography
+                widget: richtext
+                required: false
+                buttons: [bold, italic]
+                editor_components: []
+                modes: [rich_text]
+              - { name: image, label: Profile photo, widget: image, required: false }
+              - name: imagePosition
+                label: Photo crop
+                widget: select
+                required: false
+                default: center center
+                options:
+                  - { label: Center, value: center center }
+                  - { label: Top, value: center top }
+                  - { label: Upper center, value: center 22% }
+              - { name: artwork, label: Artwork image, widget: image, required: false }
+              - { name: artworkAlt, label: Artwork description for accessibility, widget: string, required: false }
+              - name: artworkCaption
+                label: Artwork caption
+                widget: richtext
+                required: false
+                buttons: [bold, italic]
+                editor_components: []
+                modes: [rich_text]
+              - name: specialProfile
+                label: Special layout
+                hint: Keep Kendra's special layout selected for her existing profile.
+                widget: select
+                required: false
+                options:
+                  - { label: Standard, value: "" }
+                  - { label: Kendra's PhD layout, value: kendra }
+          - name: news
+            label: News stories
+            label_singular: Story
+            widget: list
+            collapsed: auto
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { name: label, label: Tag, widget: string }
+              - name: title
+                label: Headline
+                widget: richtext
+                buttons: [bold, italic]
+                editor_components: []
+                modes: [rich_text]
+              - { name: date, label: Date shown on news page, widget: string, required: false }
+              - { name: summary, label: Summary, widget: text, required: false }
+              - { name: url, label: Story link, widget: string, required: false }
+              - { name: image, label: Photo, widget: image, required: false }
+              - { name: imageAlt, label: Photo description for accessibility, widget: string, required: false }
+              - name: layout
+                label: Homepage photo layout
+                widget: select
+                default: side-by-side
+                options:
+                  - { label: Side by side, value: side-by-side }
+                  - { label: Side by side compact, value: side-by-side-compact }
+                  - { label: Stacked, value: stacked }
+                  - { label: Stacked compact, value: stacked-compact }
+                  - { label: Full image, value: full-image }
+              - { name: home, label: Show on homepage, widget: boolean, default: true }
+              - { name: newsPage, label: Show on news page, widget: boolean, default: true }
+          - name: archive
+            label: Archive spotlights
+            label_singular: Spotlight
+            widget: list
+            collapsed: auto
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { name: label, label: Tag, widget: string }
+              - { name: title, label: Headline, widget: string }
+              - { name: date, label: Date, widget: string, required: false }
+              - { name: url, label: Story link, widget: string }
+              - { name: coverageUrl, label: Additional coverage link, widget: string, required: false }
+              - { name: coverageLabel, label: Additional coverage label, widget: string, required: false }
+              - { name: image, label: Photo, widget: image, required: false }
+              - { name: imageAlt, label: Photo description for accessibility, widget: string, required: false }
+          - name: resources
+            label: Resources and links
+            label_singular: Resource
+            widget: list
+            collapsed: auto
+            required: false
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: url, label: Link, widget: string }
+              - { name: image, label: Logo, widget: image, required: false }
+          - name: contacts
+            label: Contact page links
+            widget: object
+            fields:
+              - { name: admissions, label: Biology admissions, widget: string }
+              - { name: society, label: Acadia Biology Society, widget: string }
+              - { name: instagram, label: Lab Instagram, widget: string }
+              - { name: shop, label: Lab shop, widget: string }
